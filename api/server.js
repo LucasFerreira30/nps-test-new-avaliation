@@ -6,18 +6,15 @@ const port = 3000;
 
 // Configuração do CORS
 const corsOptions = {
-  origin: '*', // Permite todas as origens (para fins de teste; em produção, você pode restringir a um domínio específico)
-  methods: ['GET', 'POST', 'OPTIONS'], // Permite os métodos que serão usados
-  allowedHeaders: ['Content-Type', 'Authorization'], // Permite os cabeçalhos que você pode precisar
+  origin: 'https://lucasferreira30.github.io', // Permite apenas requisições de seu domínio GitHub Pages
+  methods: ['GET', 'POST', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization'],
 };
 
-// Use CORS com as opções configuradas
 app.use(cors(corsOptions));
 
-// Middleware para o corpo das requisições
 app.use(bodyParser.json());
 
-// Rota POST para receber a avaliação
 app.post('/avaliacao', (req, res) => {
   const { cpf, rating, feedback, ip } = req.body;
   console.log('Nova Avaliação Recebida:');
@@ -31,7 +28,6 @@ app.post('/avaliacao', (req, res) => {
   res.status(200).json({ success: true, message: 'Avaliação recebida com sucesso!' });
 });
 
-// Inicia o servidor na porta 3000
 app.listen(port, () => {
   console.log(`Servidor rodando em http://localhost:${port}`);
 });
