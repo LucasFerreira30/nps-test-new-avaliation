@@ -1,0 +1,12 @@
+{
+    "name": "nps-git",
+    "version": "1.0.0",
+    "description": "Projeto para pesquisa de satisfação",
+    "main": "index.js",
+    "scripts": {
+      "start": "node server.js"
+    },
+    "author": "Seu Nome",
+    "license": "MIT"
+  }
+  
