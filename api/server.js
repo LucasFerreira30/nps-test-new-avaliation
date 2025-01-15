@@ -2,7 +2,9 @@ const express = require('express');
 const cors = require('cors');
 const bodyParser = require('body-parser');
 const app = express();
-const port = 3000;
+
+// Porta para o Vercel ou ambiente local
+const port = process.env.PORT || 3000;
 
 // Configuração do CORS
 const corsOptions = {
@@ -15,7 +17,7 @@ app.use(cors(corsOptions));
 
 app.use(bodyParser.json());
 
-app.post('/avaliacao', (req, res) => {
+app.post('/api/avaliacao', (req, res) => {
   const { cpf, rating, feedback, ip } = req.body;
   console.log('Nova Avaliação Recebida:');
   console.log(`CPF: ${cpf}`);
@@ -31,3 +33,5 @@ app.post('/avaliacao', (req, res) => {
 app.listen(port, () => {
   console.log(`Servidor rodando em http://localhost:${port}`);
 });
+
+module.exports = app;  // Exporta o app para Vercel
