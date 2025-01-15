@@ -150,32 +150,41 @@ fetch('https://api.ipify.org?format=json')
             }
 
             // Envio dos dados para a API
-fetch('https://nps-test-new-avaliation-q46q.vercel.app/api/avaliacao', {
-    method: 'POST',
-    headers: {
-        'Content-Type': 'application/json'
+fetch("https://nps-test-new-avaliation-q46q.vercel.app/api/avaliacao", {
+  "headers": {
+    "content-type": "application/json"
+  },
+  "body": JSON.stringify({
+    cpf: "00000000000",
+    rating: 8,
+    feedback: {
+      atendimento: "positivo",
+      disponibilidade: "negativo",
+      promocao: "positivo",
+      ambiente: "negativo",
+      pagamento: "negativo",
+      preco: "positivo",
+      comentario: "teste123"
     },
-    body: JSON.stringify({
-        cpf: cpfInput.value,
-        rating: rating,
-        feedback: feedback,
-        comentario: comment,
-        ip: ip
-    })
+    ip: "177.126.233.155"
+  }),
+  "method": "POST"
 })
-.then(response => response.json())
+.then(response => response.json()) // Conversão da resposta para JSON
 .then(data => {
-    if (data.success) {
-        alert('Avaliação enviada com sucesso!');
-        window.location.href = 'https://www.drogariaspacheco.com.br';
-    } else {
-        alert('Erro ao enviar a avaliação.');
-    }
+  if (data.success) {
+    console.log("Avaliação enviada com sucesso");
+    // Aqui você pode redirecionar o usuário ou exibir uma mensagem de sucesso
+  } else {
+    console.log("Erro ao enviar avaliação:", data);
+    // Aqui você pode exibir uma mensagem de erro
+  }
 })
 .catch(error => {
-    console.error('Erro:', error);
-    alert('Erro ao tentar enviar a avaliação.');
+  console.error("Erro na requisição:", error);
+  // Aqui você pode exibir uma mensagem de erro de rede
 });
+
 </script>
 
 <!-- Rodapé -->
