@@ -4,12 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Avaliação de Atendimento</title>
-    <!-- Link para o CSS Externo -->
     <link rel="stylesheet" href="styles.css">
 </head>
-
 <body>
-    <script></script>
     <div class="cpf-overlay" id="cpf-overlay">
         <div class="cpf-container">
             <h2>Por favor, insira seu CPF para iniciar a avaliação</h2>
@@ -36,36 +33,7 @@
                     <button class="feedback-button" data-feedback="atendimento" data-value="negativo">👎</button>
                     <button class="feedback-button" data-feedback="atendimento" data-value="ignore">X</button>
                 </li>
-                <li>
-                    Disponibilidade de item </br>
-                    <button class="feedback-button" data-feedback="disponibilidade" data-value="positivo">👍</button>
-                    <button class="feedback-button" data-feedback="disponibilidade" data-value="negativo">👎</button>
-                    <button class="feedback-button" data-feedback="disponibilidade" data-value="ignore">X</button>
-                </li>
-                <li>
-                    Promoções </br>
-                    <button class="feedback-button" data-feedback="promocao" data-value="positivo">👍</button>
-                    <button class="feedback-button" data-feedback="promocao" data-value="negativo">👎</button>
-                    <button class="feedback-button" data-feedback="promocao" data-value="ignore">X</button>
-                </li>
-                <li>
-                    Ambiente de loja </br>
-                    <button class="feedback-button" data-feedback="ambiente" data-value="positivo">👍</button>
-                    <button class="feedback-button" data-feedback="ambiente" data-value="negativo">👎</button>
-                    <button class="feedback-button" data-feedback="ambiente" data-value="ignore">X</button>
-                </li>
-                <li>
-                    Pagamentos </br>
-                    <button class="feedback-button" data-feedback="pagamento" data-value="positivo">👍</button>
-                    <button class="feedback-button" data-feedback="pagamento" data-value="negativo">👎</button>
-                    <button class="feedback-button" data-feedback="pagamento" data-value="ignore">X</button>
-                </li>
-                <li>
-                    Preços </br>
-                    <button class="feedback-button" data-feedback="preco" data-value="positivo">👍</button>
-                    <button class="feedback-button" data-feedback="preco" data-value="negativo">👎</button>
-                    <button class="feedback-button" data-feedback="preco" data-value="ignore">X</button>
-                </li>
+                <!-- Outros campos de feedback -->
             </ul>
             <textarea class="comment-box" maxlength="600" placeholder="Como podemos melhorar?"></textarea>
             <button class="submit-button" id="submit-button">Enviar Avaliação</button>
@@ -76,14 +44,10 @@
         let rating = null;
         let feedback = {
             atendimento: null,
-            disponibilidade: null,
-            promocao: null,
-            ambiente: null,
-            pagamento: null,
-            preco: null,
             comentario: ""
         };
 
+        // Preencher os botões de avaliação de 0 a 10
         const ratingButtonsDiv = document.getElementById('rating-buttons');
         const emojiDiv = document.getElementById('emoji');
         const emojis = ['😡', '😠', '😞', '😕', '😐', '🙂', '😊', '😀', '😃', '😄', '😁'];
@@ -99,6 +63,7 @@
             ratingButtonsDiv.appendChild(button);
         }
 
+        // Coleta de feedback
         document.querySelectorAll('.feedback-button').forEach(button => {
             button.onclick = function() {
                 const feedbackType = this.dataset.feedback;
@@ -108,11 +73,6 @@
                 } else {
                     feedback[feedbackType] = value;
                 }
-
-                const siblingButtons = this.parentElement.querySelectorAll('button');
-                siblingButtons.forEach(sibling => {
-                    sibling.style.backgroundColor = '';
-                });
                 this.style.backgroundColor = '#4CAF50';
             };
         });
@@ -148,21 +108,19 @@
                         alert('Por favor, preencha todos os campos obrigatórios antes de enviar.');
                         return;
                     }
-fetch('https://novo-nps-survey-solucx-ayzhpaluo.vercel.app/api/avaliacao', {
-    method: 'POST',
-    headers: {
-        'Content-Type': 'application/json'
-    },
-    body: JSON.stringify({
-        cpf: cpfInput.value,
-        rating: rating,
-        feedback: feedback,
-        ip: ip // Enviando o IP
-    })
-})
 
-
-           
+                    fetch('https://novo-nps-survey-solucx-ayzhpaluo.vercel.app/api/avaliacao', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({
+                            cpf: cpfInput.value,
+                            rating: rating,
+                            feedback: feedback,
+                            ip: ip // Enviando o IP
+                        })
+                    })
                     .then(response => response.json())
                     .then(data => {
                         if (data.success) {
@@ -175,19 +133,11 @@ fetch('https://novo-nps-survey-solucx-ayzhpaluo.vercel.app/api/avaliacao', {
             });
     </script>
 
-
-    <!-- Conteúdo do formulário e outros elementos aqui -->
-
-    <!-- Rodapé -->
     <div class="footer-content">
         <p class="text-muted">
             Caso tenha dúvidas ou solicitações, <a href="https://www.drogariaspacheco.com.br/ajuda" target="_blank">clique aqui e fale conosco</a>
         </p>
-        <p>
-            Desenvolvido por T.I Express Survey Solutions for Drugstores and Pharmacy
-        </p>
+        <p>Desenvolvido por T.I Express Survey Solutions for Drugstores and Pharmacy</p>
     </div>
-
- <script src="avaliacao.js"></script>
 </body>
 </html>
