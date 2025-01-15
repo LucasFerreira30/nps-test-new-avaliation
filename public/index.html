@@ -148,19 +148,20 @@
                         alert('Por favor, preencha todos os campos obrigatórios antes de enviar.');
                         return;
                     }
+            fetch('https://seu-projeto.vercel.app/api/avaliacao', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                cpf: cpfInput.value,
+                rating: rating,
+                feedback: feedback,
+                ip: ip // Enviando o IP
+                })
+            })
 
-                    fetch('http://localhost:3000/avaliacao', {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json'
-                        },
-                        body: JSON.stringify({
-                            cpf: cpfInput.value,
-                            rating: rating,
-                            feedback: feedback,
-                            ip: ip // Enviando o IP
-                        })
-                    })
+           
                     .then(response => response.json())
                     .then(data => {
                         if (data.success) {
