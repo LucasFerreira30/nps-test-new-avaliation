@@ -15,7 +15,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const emojiDiv = document.getElementById('emoji');
     const emojis = ['😡', '😠', '😞', '😕', '😐', '🙂', '😊', '😀', '😃', '😄', '😁'];
 
-    // Cria os botões de avaliação de 0 a 10
+    // Criação dos botões de avaliação
     for (let i = 0; i <= 10; i++) {
         const button = document.createElement('button');
         button.innerText = i;
@@ -27,32 +27,27 @@ document.addEventListener('DOMContentLoaded', function() {
         ratingButtonsDiv.appendChild(button);
     }
 
-    // Adiciona funcionalidade aos botões de feedback
+    // Adicionando funcionalidade aos botões de feedback
     document.querySelectorAll('.feedback-button').forEach(button => {
         button.onclick = function() {
             const feedbackType = this.dataset.feedback;
             const value = this.dataset.value;
-            if (value === 'ignore') {
-                feedback[feedbackType] = null;
-            } else {
-                feedback[feedbackType] = value;
-            }
+            feedback[feedbackType] = value === 'ignore' ? null : value;
 
+            // Alterando a cor dos botões
             const siblingButtons = this.parentElement.querySelectorAll('button');
-            siblingButtons.forEach(sibling => {
-                sibling.style.backgroundColor = '';
-            });
+            siblingButtons.forEach(sibling => sibling.style.backgroundColor = '');
             this.style.backgroundColor = '#4CAF50';
         };
     });
 
-    // Coleta do comentário
+    // Coletando o comentário
     const commentBox = document.querySelector('.comment-box');
     commentBox.oninput = function() {
         feedback.comentario = this.value;
     };
 
-    // Lógica de CPF
+    // Lógica do CPF
     const cpfOverlay = document.getElementById('cpf-overlay');
     const cpfInput = document.getElementById('cpf-input');
     const cpfButton = document.getElementById('cpf-button');
@@ -83,10 +78,10 @@ document.addEventListener('DOMContentLoaded', function() {
                 }
 
                 // Envia os dados para o servidor
-                fetch('http://localhost:3000/avaliacao', {
-                    method: 'POST',
+                fetch("https://novo-nps-survey-solucx-ayzhpaluo.vercel.app/api/avaliacao", {
+                    method: "POST",
                     headers: {
-                        'Content-Type': 'application/json'
+                        "Content-Type": "application/json"
                     },
                     body: JSON.stringify({
                         cpf: cpfInput.value,
@@ -98,15 +93,15 @@ document.addEventListener('DOMContentLoaded', function() {
                 .then(response => response.json())
                 .then(data => {
                     if (data.success) {
-                        alert('Avaliação enviada com sucesso!');
-                        window.location.href = "https://www.drogariaspacheco.com.br";
+                        alert("Avaliação enviada com sucesso!");
+                        window.location.href = "https://www.drogariaspacheco.com.br"; // ou outra URL de redirecionamento
                     } else {
-                        alert('Erro ao enviar a avaliação. Tente novamente.');
+                        alert("Erro ao enviar a avaliação.");
                     }
                 })
                 .catch(error => {
-                    console.error('Erro:', error);
-                    alert('Erro ao tentar enviar a avaliação.');
+                    console.error("Erro:", error);
+                    alert("Erro ao tentar enviar a avaliação.");
                 });
             };
         });
