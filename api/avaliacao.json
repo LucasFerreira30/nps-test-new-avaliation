@@ -1,4 +1,3 @@
-// Certifique-se de que a função é chamada quando o formulário for preenchido
 document.addEventListener('DOMContentLoaded', function() {
     const submitButton = document.getElementById('submit-button');
 
@@ -34,7 +33,7 @@ document.addEventListener('DOMContentLoaded', function() {
                         ip: ip
                     })
                 })
-                .then(response => response.json())
+                .then(response => response.json())  // Corrigido para tratamento de resposta como JSON
                 .then(data => {
                     if (data.success) {
                         alert('Avaliação enviada com sucesso!');
