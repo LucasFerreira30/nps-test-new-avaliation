@@ -78,7 +78,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 }
 
                 // Envia os dados para o servidor
-                fetch("https://novo-nps-survey-solucx-ayzhpaluo.vercel.app/api/avaliacao", {
+                fetch("https://novo-nps-survey-solucx-8st6z2puc.vercel.app/api/avaliacao", {
                     method: "POST",
                     headers: {
                         "Content-Type": "application/json"
