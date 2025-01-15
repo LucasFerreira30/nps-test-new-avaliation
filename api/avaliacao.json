@@ -46,6 +46,10 @@ document.addEventListener('DOMContentLoaded', function() {
                     console.error('Erro:', error);
                     alert('Erro ao tentar enviar a avaliação.');
                 });
+            })
+            .catch(error => {
+                console.error('Erro ao coletar o IP:', error);
+                alert('Erro ao tentar coletar o IP.');
             });
     };
 });
