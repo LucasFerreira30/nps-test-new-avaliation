@@ -9,9 +9,9 @@ const port = process.env.PORT || 3000;
 
 // Configuração do CORS
 const corsOptions = {
-  origin: 'https://lucasferreira30.github.io', // Permite apenas requisições de seu domínio GitHub Pages
-  methods: ['GET', 'POST', 'OPTIONS'],
-  allowedHeaders: ['Content-Type', 'Authorization'],
+    origin: 'https://new-nps-avaliation-nps-dp-sp.vercel.app',
+    methods: ['POST', 'GET'], // Adicione os métodos aceitos
+    allowedHeaders: ['Content-Type']
 };
 
 app.use(cors(corsOptions));
